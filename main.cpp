@@ -11,8 +11,8 @@ using namespace std;
 
 // Constants for file names and delimiters
 const string DELIMITER = "#//#";
-const string CLIENT_FILE_NAME = "Bank1.txt";
-const string USER_FILE_NAME = "users1.txt";
+const string CLIENT_FILE_NAME = "Bank.txt";
+const string USER_FILE_NAME = "users.txt";
 
 // Enum for main menu options
 enum MainMenuOption { Add = 1, View, Find, Delete, Update, Transaction, Manage, LogOut };
