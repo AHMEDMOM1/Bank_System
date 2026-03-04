@@ -1,0 +1,6 @@
+-std=c++17
+-IModels
+-IRepository
+-IServices
+-IUI
+-IUtility

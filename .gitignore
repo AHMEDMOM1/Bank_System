@@ -1,0 +1,31 @@
+# Build outputs
+x64/
+Debug/
+Release/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.aps
+
+# Compiled files
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.lib
+*.log
+*.tlog
+
+# VS Code
+.vscode/
+
+# Other
+*.db
+oopBankP.2c9e45ba/
