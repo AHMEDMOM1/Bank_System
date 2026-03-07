@@ -3,10 +3,10 @@
 #include "clsClient.h"
 #include "clsClientManager.h"
 #include "clsClientScreen.h"
+#include "clsUpdateClientScreen.h"
 
 int main()
 {
-
-	clsClient Client{ clsClientManager::findClient("A101") };
-	clsClientScreen::print(Client);
+	clsUpdateClientScreen::updateScreen();
+	
 }

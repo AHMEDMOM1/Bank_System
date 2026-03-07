@@ -130,6 +130,7 @@
     <ClCompile Include="oopBankProjectAgain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="clsUpdateClientScreen.h" />
     <ClInclude Include="Models\clsAdmin.h" />
     <ClInclude Include="Models\clsClient.h" />
     <ClInclude Include="Services\clsClientManager.h" />

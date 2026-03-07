@@ -68,5 +68,8 @@
     <ClInclude Include="UI\clsClientScreen.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="clsUpdateClientScreen.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

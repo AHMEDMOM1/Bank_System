@@ -6,19 +6,35 @@
 
 class clsClientManager {
 
-  static clsClient _GetEmptyClient() {
-    return clsClient(clsClient::getEmptyMode(), "", "", "", "", "", "", 0);
+	static clsClient _getExistingAccount() {
+		clsClient Client{};
+		do {
+			string account{};
+			cout << "Enter Existing Account: ";
+			getline(cin, account);
+			Client = clsClientManager::findClient(account);
+		} while (Client.isEmpty());
+		return Client;
+	}
+	static clsClient _GetEmptyClient() {
+    return clsClient(clsClient::getEmptyMode(), "", "", "", "", "", 0, 0);
   }
 
 public:
-  static clsClient findClient(const string &account) {
-    vector<clsClient> Clients{clsClientRepository::loadAll()};
+  
+  static clsClient findClient(const string& account) {
+      vector<clsClient> Clients{ clsClientRepository::loadAll() };
 
-    for (const clsClient &Client : Clients) {
-      if (Client.accountNumber == account) {
-        return Client;
+      for (const clsClient& Client : Clients) {
+          if (Client.accountNumber == account) {
+              return Client;
+          }
       }
-    }
-    return _GetEmptyClient();
+      return _GetEmptyClient();
+  }
+
+  static clsClient update() {
+	  
+	  
   }
 };

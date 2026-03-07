@@ -17,13 +17,13 @@ class clsClientRepository {
     return clsClient{clsClient::getUpdateMode(), linePartitions.at(0),
                      linePartitions.at(1),       linePartitions.at(2),
                      linePartitions.at(3),       linePartitions.at(4),
-                     linePartitions.at(5),       stof(linePartitions.at(6))};
+                     static_cast<short>(stoi(linePartitions.at(5))),  stof(linePartitions.at(6))};
   }
 
   static string _ConvertClientToLine(const clsClient &Client) {
     return Client.firstName + _delim + Client.lastName + _delim + Client.email +
            _delim + Client.phone + _delim + Client.accountNumber + _delim +
-           Client.pinCode + _delim + to_string(Client.balance);
+           to_string(Client.pinCode) + _delim + to_string(Client.balance);
   }
 
 public:
@@ -51,6 +51,30 @@ public:
       iFile.close();
     }
     return Clients;
+  }
+
+  static bool saveAll(const vector<clsClient>& Clients) {
+      ofstream oFile{ _fileName, ios::out };
+      if (oFile) {
+          for (clsClient Client : Clients) {
+              oFile << _ConvertClientToLine(Client) << '\n';
+          }
+          oFile.close();
+          return true;
+      }
+      return false;
+  }
+
+  static bool reSave(const clsClient& Client) {
+      vector<clsClient> Clients{loadAll()};
+      
+        for (clsClient& C : Clients) {
+            if (Client.accountNumber == C.accountNumber) {
+                C = Client;
+                return saveAll(Clients);
+            }
+        }
+      return false;
   }
 };
 string clsClientRepository::_fileName = "Clients.txt";

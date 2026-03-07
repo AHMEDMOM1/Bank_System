@@ -5,7 +5,7 @@
 class clsClient : public clsPerson {
 
   string _AccountNumber;
-  string _PinCode;
+  short _PinCode;
   float _Balance;
 
   enum enMode { Empty, Update } _Mode{};
@@ -13,7 +13,7 @@ class clsClient : public clsPerson {
 public:
   clsClient(enMode Mode, const string &FirstName, const string &LastName,
             const string &Email, const string &Phone,
-            const string &AccountNumber, const string &PinCode,
+            const string &AccountNumber, const short &PinCode,
             float AccountBalance)
       : clsPerson(FirstName, LastName, Email, Phone) {
     _Mode = Mode;
@@ -25,8 +25,8 @@ public:
 
   string getAccountNumber() const { return _AccountNumber; }
 
-  void setPinCode(const string &pinCode) { _PinCode = pinCode; }
-  string getPinCode() const { return _PinCode; }
+  void setPinCode(const short &pinCode) { _PinCode = pinCode; }
+  short getPinCode() const { return _PinCode; }
 
   void setBalance(const float &balance) { _Balance = balance; }
   float getBalance() const { return _Balance; }
@@ -37,6 +37,6 @@ public:
   static enMode getUpdateMode() { return enMode::Update; }
 
   __declspec(property(get = getAccountNumber)) string accountNumber;
-  __declspec(property(get = getPinCode, put = setPinCode)) string pinCode;
+  __declspec(property(get = getPinCode, put = setPinCode)) short pinCode;
   __declspec(property(get = getBalance, put = setBalance)) float balance;
 };
