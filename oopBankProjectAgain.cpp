@@ -1,12 +1,10 @@
 #include <iostream>
 
-#include "clsClient.h"
-#include "clsClientManager.h"
-#include "clsClientScreen.h"
-#include "clsUpdateClientScreen.h"
+
+#include "clsAddClientScreen.h"
 
 int main()
 {
-	clsUpdateClientScreen::updateScreen();
+	clsAddClientScreen::AddScreen();
 	
 }
