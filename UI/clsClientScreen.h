@@ -10,14 +10,14 @@ public:
   static void print(const clsClient &Client) {
     cout << "Client Card:" << endl;
     cout << setw(50) << setfill('-') << '-' << endl << setfill(' ');
-    cout << "First Name: " << Client.firstName << endl;
-    cout << "Last Name: " << Client.lastName << endl;
-    cout << "Full Name: " << Client.fullName << endl;
-    cout << "Email: " << Client.email << endl;
-    cout << "Phone Number: " << Client.phone << endl;
-    cout << "Account Number: " << Client.accountNumber << endl;
-    cout << "Pin Code: " << Client.pinCode << endl;
-    cout << "Balance: " << Client.balance << endl;
+    cout << "First Name: " << Client.getFirstName() << endl;
+    cout << "Last Name: " << Client.getLastName() << endl;
+    cout << "Full Name: " << Client.getFullName() << endl;
+    cout << "Email: " << Client.getEmail() << endl;
+    cout << "Phone Number: " << Client.getPhone() << endl;
+    cout << "Account Number: " << Client.getAccountNumber() << endl;
+    cout << "Pin Code: " << Client.getPinCode() << endl;
+    cout << "Balance: " << Client.getBalance() << endl;
     cout << setw(50) << setfill('-') << '-' << endl << setfill(' ');
   }
 };

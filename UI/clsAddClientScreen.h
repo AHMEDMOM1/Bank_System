@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <string>
 
 #include "clsClient.h"
 #include "clsClientManager.h"
@@ -8,45 +6,38 @@
 #include "clsInputValidate.h"
 #include "clsScreen.h"
 
-using namespace std;
 
-class clsUpdateClientScreen : protected clsScreen {
+class clsAddClientScreen : protected clsScreen {
   clsClientManager &_manager;
 
-  clsClient _getExistingAccount() {
-    clsClient Client{};
+  std::string _getNotExistAccount() {
+    std::string account{};
     do {
-      string account{};
-      cout << "Enter Existing Account: ";
-      getline(cin, account);
-      Client = _manager.findClient(account);
-    } while (Client.isEmpty());
-    return Client;
+      cout << "Enter New (Not Exist) Account Number: ";
+      cin >> account;
+    } while (!_manager.findClient(account).isEmpty());
+
+    return account;
   }
 
-  static void _ReInput(clsClient &Client) {
-
+  static void _fillClient(clsClient &Client) {
     Client.setFirstName(clsInputValidate::ReadString("First Name: "));
-
     Client.setLastName(clsInputValidate::ReadString("Last Name: "));
-
     Client.setEmail(clsInputValidate::ReadString("Email: "));
-
     Client.setPhone(clsInputValidate::ReadString("Phone: "));
-
     Client.setPinCode(
         static_cast<short>(clsInputValidate::ReadIntNumber("Pin Code: ")));
-
     Client.setBalance(clsInputValidate::ReadDblNumber("Balance: "));
   }
 
 public:
-  clsUpdateClientScreen(clsClientManager &manager) : _manager(manager) {}
+  clsAddClientScreen(clsClientManager &manager) : _manager(manager) {}
 
-  bool updateScreen() {
-    clsClient Client{_getExistingAccount()};
+  void AddScreen() {
+    std::string account{_getNotExistAccount()};
+    clsClient Client{_manager.initNewAccount(account)};
+    _fillClient(Client);
+    _manager.addClient(Client);
     clsClientScreen::print(Client);
-    _ReInput(Client);
-    return _manager.updateClient(Client);
   }
 };

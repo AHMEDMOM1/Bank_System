@@ -68,11 +68,14 @@
     <ClInclude Include="UI\clsClientScreen.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="clsUpdateClientScreen.h">
+    <ClInclude Include="UI\clsUpdateClientScreen.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="clsAddClientScreen.h">
+    <ClInclude Include="UI\clsAddClientScreen.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository\IClientRepository.h">
+      <Filter>Header Files\Repository</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

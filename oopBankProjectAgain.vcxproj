@@ -130,12 +130,13 @@
     <ClCompile Include="oopBankProjectAgain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clsAddClientScreen.h" />
-    <ClInclude Include="clsUpdateClientScreen.h" />
     <ClInclude Include="Models\clsAdmin.h" />
     <ClInclude Include="Models\clsClient.h" />
+    <ClInclude Include="Repository\IClientRepository.h" />
     <ClInclude Include="Services\clsClientManager.h" />
     <ClInclude Include="Repository\clsClientRepository.h" />
+    <ClInclude Include="UI\clsAddClientScreen.h" />
+    <ClInclude Include="UI\clsUpdateClientScreen.h" />
     <ClInclude Include="Utility\clsDate.h" />
     <ClInclude Include="Utility\clsInputValidate.h" />
     <ClInclude Include="Models\clsPerson.h" />

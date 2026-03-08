@@ -3,31 +3,38 @@
 #include <string>
 #include <vector>
 
-
+#include "IClientRepository.h"
 #include "clsClient.h"
 #include "clsString.h"
 
-class clsClientRepository {
-  static string _fileName;
-  static string _delim;
+class clsClientRepository : public IClientRepository {
+  string _fileName;
+  string _delim;
 
-  static clsClient _ConvertLineToClient(const string &line) {
+  clsClient _ConvertLineToClient(const string &line) {
     vector<string> linePartitions{clsString::Split(line, _delim)};
 
-    return clsClient{clsClient::getUpdateMode(), linePartitions.at(0),
-                     linePartitions.at(1),       linePartitions.at(2),
-                     linePartitions.at(3),       linePartitions.at(4),
-                     static_cast<short>(stoi(linePartitions.at(5))),  stof(linePartitions.at(6))};
+    return clsClient{linePartitions.at(0),
+                     linePartitions.at(1),
+                     linePartitions.at(2),
+                     linePartitions.at(3),
+                     linePartitions.at(4),
+                     static_cast<short>(stoi(linePartitions.at(5))),
+                     stof(linePartitions.at(6))};
   }
 
-  static string _ConvertClientToLine(const clsClient &Client) {
-    return Client.firstName + _delim + Client.lastName + _delim + Client.email +
-           _delim + Client.phone + _delim + Client.accountNumber + _delim +
-           to_string(Client.pinCode) + _delim + to_string(Client.balance);
+  string _ConvertClientToLine(const clsClient &Client) {
+    return Client.getFirstName() + _delim + Client.getLastName() + _delim +
+           Client.getEmail() + _delim + Client.getPhone() + _delim +
+           Client.getAccountNumber() + _delim + to_string(Client.getPinCode()) +
+           _delim + to_string(Client.getBalance());
   }
 
 public:
-  static bool append(const clsClient &Client) {
+  clsClientRepository(const string &fileName, const string &delim = "#//#")
+      : _fileName(fileName), _delim(delim) {}
+
+  bool append(const clsClient &Client) override {
     ofstream oFile{_fileName, ios::app};
     if (oFile) {
       string line{_ConvertClientToLine(Client)};
@@ -39,7 +46,7 @@ public:
     return false;
   }
 
-  static vector<clsClient> loadAll() {
+  vector<clsClient> loadAll() override {
     ifstream iFile{_fileName, ios::in};
     vector<clsClient> Clients{};
     if (iFile) {
@@ -53,29 +60,27 @@ public:
     return Clients;
   }
 
-  static bool saveAll(const vector<clsClient>& Clients) {
-      ofstream oFile{ _fileName, ios::out };
-      if (oFile) {
-          for (clsClient Client : Clients) {
-              oFile << _ConvertClientToLine(Client) << '\n';
-          }
-          oFile.close();
-          return true;
+  bool saveAll(const vector<clsClient> &Clients) override {
+    ofstream oFile{_fileName, ios::out};
+    if (oFile) {
+      for (const clsClient &Client : Clients) {
+        oFile << _ConvertClientToLine(Client) << '\n';
       }
-      return false;
+      oFile.close();
+      return true;
+    }
+    return false;
   }
 
-  static bool reSave(const clsClient& Client) {
-      vector<clsClient> Clients{loadAll()};
-      
-        for (clsClient& C : Clients) {
-            if (Client.accountNumber == C.accountNumber) {
-                C = Client;
-                return saveAll(Clients);
-            }
-        }
-      return false;
+  bool reSave(const clsClient &Client) override {
+    vector<clsClient> Clients{loadAll()};
+
+    for (clsClient &C : Clients) {
+      if (Client.getAccountNumber() == C.getAccountNumber()) {
+        C = Client;
+        return saveAll(Clients);
+      }
+    }
+    return false;
   }
 };
-string clsClientRepository::_fileName = "Clients.txt";
-string clsClientRepository::_delim = "#//#";

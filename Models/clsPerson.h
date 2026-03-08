@@ -32,10 +32,4 @@ public:
 
   void setPhone(const string &phone) { _phone = phone; }
   string getPhone() const { return _phone; }
-
-  __declspec(property(get = getFirstName, put = setFirstName)) string firstName;
-  __declspec(property(get = getLastName, put = setLastName)) string lastName;
-  __declspec(property(get = getFullName)) string fullName;
-  __declspec(property(get = getEmail, put = setEmail)) string email;
-  __declspec(property(get = getPhone, put = setPhone)) string phone;
 };

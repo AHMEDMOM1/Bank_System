@@ -1,40 +1,37 @@
 #pragma once
 #include <vector>
 
+#include "IClientRepository.h"
 #include "clsClient.h"
-#include "clsClientRepository.h"
+
 
 class clsClientManager {
 
-	static clsClient _getExistingAccount() {
-		clsClient Client{};
-		do {
-			string account{};
-			cout << "Enter Existing Account: ";
-			getline(cin, account);
-			Client = clsClientManager::findClient(account);
-		} while (Client.isEmpty());
-		return Client;
-	}
-	static clsClient _GetEmptyClient() {
-    return clsClient(clsClient::getEmptyMode(), "", "", "", "", "", 0, 0);
-  }
+  IClientRepository &_repository;
+
+  clsClient _GetEmptyClient() { return clsClient("", "", "", "", "", 0, 0); }
 
 public:
-  
-  static clsClient findClient(const string& account) {
-      vector<clsClient> Clients{ clsClientRepository::loadAll() };
+  clsClientManager(IClientRepository &repo) : _repository(repo) {}
 
-      for (const clsClient& Client : Clients) {
-          if (Client.accountNumber == account) {
-              return Client;
-          }
-      }
-      return _GetEmptyClient();
+  clsClient initNewAccount(const string &account) {
+    return clsClient("", "", "", "", account, 0, 0);
   }
 
-  static clsClient update() {
-	  
-	  
+  clsClient findClient(const string &account) {
+    vector<clsClient> Clients{_repository.loadAll()};
+
+    for (const clsClient &Client : Clients) {
+      if (Client.getAccountNumber() == account) {
+        return Client;
+      }
+    }
+    return _GetEmptyClient();
+  }
+
+  bool addClient(const clsClient &Client) { return _repository.append(Client); }
+
+  bool updateClient(const clsClient &Client) {
+    return _repository.reSave(Client);
   }
 };
